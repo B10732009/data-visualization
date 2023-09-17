@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="311552013.css">
+    <title>Homework 1: Scatter Plots</title>
+</head>
+
+<body>
+    <h1>Homework 1: Scatter Plots</h1>
+    <form>
+        <p>X-Axis</p>
+        <input type="radio" id="x-sepal-length" name="x-attribute" value="Sepal Length" checked
+            onclick="setLabel('x', 'sepal length'); renderChart();">
+        <label for="x-sepal-length">Sepal Length</label><br>
+        <input type="radio" id="x-sepal-width" name="x-attribute" value="Sepal Width"
+            onclick="setLabel('x', 'sepal width'); renderChart();">
+        <label for="x-sepal-length">Sepal Width</label><br>
+        <input type="radio" id="x-petal-length" name="x-attribute" value="Petal Length"
+            onclick="setLabel('x', 'petal length'); renderChart();">
+        <label for="x-petal-length">Petal Length</label><br>
+        <input type="radio" id="x-petal-width" name="x-attribute" value="Petal Width"
+            onclick="setLabel('x', 'petal width'); renderChart();">
+        <label for="x-petal-width">Petal Width</label><br>
+
+        <p>Y-Axis</p>
+        <input type="radio" id="y-sepal-length" name="y-attribute" value="Sepal Length" checked
+            onclick="setLabel('y', 'sepal length'); renderChart();">
+        <label for="y-sepal-length">Sepal Length</label><br>
+        <input type="radio" id="y-sepal-width" name="y-attribute" value="Sepal Width"
+            onclick="setLabel('y', 'sepal width'); renderChart();">
+        <label for="y-sepal-length">Sepal Width</label><br>
+        <input type="radio" id="y-petal-length" name="y-attribute" value="Petal Length"
+            onclick="setLabel('y', 'petal length'); renderChart();">
+        <label for="y-petal-length">Petal Length</label><br>
+        <input type="radio" id="y-petal-width" name="y-attribute" value="Petal Width"
+            onclick="setLabel('y', 'petal width'); renderChart();">
+        <label for="y-petal-width">Petal Width</label><br>
+    </form>
+
+    <svg id="scatter-plot-chart" width="500" height="500"></svg>
+
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="311552013.js"></script>
+</body>
+
+</html>
