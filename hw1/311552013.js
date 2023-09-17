@@ -9,15 +9,15 @@ let colors = {
     "Iris-virginica": "#5A5AAD"
 };
 
-const width = 500;
-const height = 500;
+const width = 350;
+const height = 350;
 const margin = 30;
 
 const svg = d3.select("#scatter-plot-chart");
 
 // render x-axis
 const xScale = d3.scaleLinear()
-    .domain([0, 10])
+    .domain([0, 8])
     .range([0, width - margin * 2]);
 svg.append("g")
     .attr("transform", `translate(${margin}, ${height - margin})`)
@@ -25,7 +25,7 @@ svg.append("g")
 
 // render y-axis
 const yScale = d3.scaleLinear()
-    .domain([0, 10])
+    .domain([0, 8])
     .range([height - margin * 2, 0]);
 svg.append("g")
     .attr("transform", `translate(${margin}, ${margin})`)
