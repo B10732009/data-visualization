@@ -3,11 +3,38 @@ body {
     text-align: center;
 }
 
-h1, p {
+h1,
+p {
     color: #484891;
     font-weight: bold;
 }
 
-input, label {
+input,
+label {
     accent-color: #484891;
+}
+
+.class-dot {
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.class-dot-color1 {
+    background-color: #808040;
+}
+
+.class-dot-color2 {
+    background-color: #408080;
+}
+
+.class-dot-color3 {
+    background-color: #5A5AAD;
+}
+
+.class-text {
+    height: 15px;
+    font-size: 15px;
+    display: inline-block;
 }
