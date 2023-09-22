@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="311552013.css">
+    <title>Homework 2: Parallel Coordinate Plots</title>
+</head>
+
+<body>
+    <h1>Homework 2: Parallel Coordinate Plots</h1>
+    <div>
+        <p>Flower Class Visibility</p>
+        <input type="checkbox"id="checkbox-iris-setosa" name="y-attribute" value="Sepal Length" checked
+            onclick="reverseFlowerVisiblity('Iris-setosa'); renderChart();">
+        <label for="checkbox-iris-setosa">Iris-setosa</label>
+        <input type="checkbox" id="checkbox-iris-versicolor" name="y-attribute" value="Sepal Width" checked
+            onclick="reverseFlowerVisiblity('Iris-versicolor'); renderChart();">
+        <label for="checkbox-iris-versicolor">Iris-versicolor</label>
+        <input type="checkbox" id="checkbox-iris-virginica" name="y-attribute" value="Petal Length" checked
+            onclick="reverseFlowerVisiblity('Iris-virginica'); renderChart();">
+        <label for="checkbox-iris-virginica">Iris-virginica</label>
+    </div>
+
+    <svg id="parallel-coordinate-plots-chart" width="500" height="500"></svg>
+</body>
+
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="311552013.js"></script>
+
+</html>

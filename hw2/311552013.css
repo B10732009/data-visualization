@@ -1,0 +1,22 @@
+body {
+    background-color: #F0F0F0;
+    text-align: center;
+}
+
+h1,
+p {
+    color: #484891;
+    font-weight: bold;
+}
+
+#checkbox-iris-setosa {
+    accent-color: #808040;
+}
+
+#checkbox-iris-versicolor {
+    accent-color: #408080;
+}
+
+#checkbox-iris-virginica {
+    accent-color: #8F4586;
+}
