@@ -20,3 +20,14 @@ p {
 #checkbox-iris-virginica {
     accent-color: #8F4586;
 }
+
+#attribute-order {
+    display: inline-flex;
+}
+
+.attribute-order-button {
+    background-color: #484891;
+    border: none;
+    color: #F0F0F0;
+    text-align: center;
+}

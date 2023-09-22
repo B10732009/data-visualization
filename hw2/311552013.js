@@ -43,11 +43,26 @@ const interval = (height - margin * 2) / 3;
 
 
 const svg = d3.select("#parallel-coordinate-plots-chart");
+const order = d3.select("#attribute-order");
 
 renderChart();
+renderAttributeOrder();
 
 function reverseFlowerVisiblity(index) {
     flowers[index]["visible"] = !flowers[index]["visible"];
+}
+
+function swapAttributeOrder(index1, index2) {
+    const temp = attributes[index1];
+    attributes[index1] = attributes[index2];
+    attributes[index2] = temp;
+}
+
+function renderAttributeOrder() {
+    for (let i = 0; i < 4; i++) {
+        order.select(`#attribute-order-text-${i}`)
+            .text(attributes[i]["title"]);
+    }
 }
 
 function renderChart() {

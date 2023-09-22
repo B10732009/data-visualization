@@ -12,16 +12,49 @@
     <h1>Homework 2: Parallel Coordinate Plots</h1>
     <div>
         <p>Flower Class Visibility</p>
-        <input type="checkbox"id="checkbox-iris-setosa" name="y-attribute" value="Sepal Length" checked
+        <input type="checkbox" id="checkbox-iris-setosa" name="attribute" value="Sepal Length" checked
             onclick="reverseFlowerVisiblity('Iris-setosa'); renderChart();">
         <label for="checkbox-iris-setosa">Iris-setosa</label>
-        <input type="checkbox" id="checkbox-iris-versicolor" name="y-attribute" value="Sepal Width" checked
+        <input type="checkbox" id="checkbox-iris-versicolor" name="attribute" value="Sepal Width" checked
             onclick="reverseFlowerVisiblity('Iris-versicolor'); renderChart();">
         <label for="checkbox-iris-versicolor">Iris-versicolor</label>
-        <input type="checkbox" id="checkbox-iris-virginica" name="y-attribute" value="Petal Length" checked
+        <input type="checkbox" id="checkbox-iris-virginica" name="attribute" value="Petal Length" checked
             onclick="reverseFlowerVisiblity('Iris-virginica'); renderChart();">
         <label for="checkbox-iris-virginica">Iris-virginica</label>
     </div>
+
+    <div>
+        <p>Attribute Order</p>
+        <div id="attribute-order">
+            <div id="attribute-order-text-0"></div>
+            &nbsp;
+            <button class="attribute-order-button"
+                onclick="swapAttributeOrder(0, 1); renderAttributeOrder(); renderChart();">&gt;</button>
+            &nbsp;
+            <button class="attribute-order-button"
+                onclick="swapAttributeOrder(0, 1); renderAttributeOrder(); renderChart();">&lt;</button>
+            &nbsp;
+            <div id="attribute-order-text-1"></div>
+            &nbsp;
+            <button class="attribute-order-button"
+                onclick="swapAttributeOrder(1, 2); renderAttributeOrder(); renderChart();">&gt;</button>
+            &nbsp;
+            <button class="attribute-order-button"
+                onclick="swapAttributeOrder(1, 2); renderAttributeOrder(); renderChart();">&lt;</button>
+            &nbsp;
+            <div id="attribute-order-text-2"></div>
+            &nbsp;
+            <button class="attribute-order-button"
+                onclick="swapAttributeOrder(2, 3); renderAttributeOrder(); renderChart();">&gt;</button>
+            &nbsp;
+            <button class="attribute-order-button"
+                onclick="swapAttributeOrder(2, 3); renderAttributeOrder(); renderChart();">&lt;</button>
+            &nbsp;
+            <div id="attribute-order-text-3"></div>
+        </div>
+    </div>
+
+    <br>
 
     <svg id="parallel-coordinate-plots-chart" width="500" height="500"></svg>
 </body>
