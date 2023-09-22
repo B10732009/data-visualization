@@ -12,15 +12,15 @@
     <h1>Homework 2: Parallel Coordinate Plots</h1>
     <div>
         <p>Flower Class Visibility</p>
-        <input type="checkbox" id="checkbox-iris-setosa" name="attribute" value="Sepal Length" checked
-            onclick="reverseFlowerVisiblity('Iris-setosa'); renderChart();">
-        <label for="checkbox-iris-setosa">Iris-setosa</label>
-        <input type="checkbox" id="checkbox-iris-versicolor" name="attribute" value="Sepal Width" checked
+        <input type="checkbox" id="flower-class-visibility-0" name="flower-class-visibility" value="Sepal Length"
+            checked onclick="reverseFlowerVisiblity('Iris-setosa'); renderChart();">
+        <label for="flower-class-visibility-0">Iris-setosa</label>
+        <input type="checkbox" id="flower-class-visibility-1" name="flower-class-visibility" value="Sepal Width" checked
             onclick="reverseFlowerVisiblity('Iris-versicolor'); renderChart();">
-        <label for="checkbox-iris-versicolor">Iris-versicolor</label>
-        <input type="checkbox" id="checkbox-iris-virginica" name="attribute" value="Petal Length" checked
-            onclick="reverseFlowerVisiblity('Iris-virginica'); renderChart();">
-        <label for="checkbox-iris-virginica">Iris-virginica</label>
+        <label for="flower-class-visibility-1">Iris-versicolor</label>
+        <input type="checkbox" id="flower-class-visibility-2" name="flower-class-visibility" value="Petal Length"
+            checked onclick="reverseFlowerVisiblity('Iris-virginica'); renderChart();">
+        <label for="flower-class-visibility-2">Iris-virginica</label>
     </div>
 
     <div>
@@ -56,7 +56,7 @@
 
     <br>
 
-    <svg id="parallel-coordinate-plots-chart" width="500" height="500"></svg>
+    <svg id="parallel-coordinate-plots-chart" width="1000" height="300"></svg>
 </body>
 
 <script src="https://d3js.org/d3.v7.min.js"></script>

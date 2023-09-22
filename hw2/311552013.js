@@ -36,10 +36,10 @@ let flowers = {
     }
 }
 
-const width = 500;
-const height = 500;
+const width = 1000;
+const height = 300;
 const margin = 30;
-const interval = (height - margin * 2) / 3;
+const interval = (width - margin * 2) / 3;
 
 
 const svg = d3.select("#parallel-coordinate-plots-chart");
@@ -77,28 +77,29 @@ function renderChart() {
         const axes = [
             d3.scaleLinear()
                 .domain(attributes[0]["domain"])
-                .range([0, width - margin * 2]),
+                .range([0, height - margin * 2]),
             d3.scaleLinear()
                 .domain(attributes[1]["domain"])
-                .range([0, width - margin * 2]),
+                .range([0, height - margin * 2]),
             d3.scaleLinear()
                 .domain(attributes[2]["domain"])
-                .range([0, width - margin * 2]),
+                .range([0, height - margin * 2]),
             d3.scaleLinear()
                 .domain(attributes[3]["domain"])
-                .range([0, width - margin * 2])
+                .range([0, height - margin * 2])
         ];
 
         // render axes
         for (let i = 0; i < 4; i++) {
             svg.append("g")
                 .attr("class", "axis")
-                .attr("transform", `translate(${margin}, ${height - margin - interval * i})`)
-                .call(d3.axisBottom(axes[i]));
+                .attr("transform", `translate(${margin + interval * i}, ${margin})`)
+                .call(d3.axisLeft(axes[i]));
 
             svg.append("text")
                 .attr("class", "axis-title")
-                .attr("transform", `translate(${margin}, ${height - margin - interval * i - 5})`)
+                .attr("transform", `translate(${margin + interval * i + 5}, ${margin}) rotate(90)`)
+                .attr("font-size", "12px")
                 .text(attributes[i]["title"]);
         }
 
@@ -109,16 +110,16 @@ function renderChart() {
                 .data(data)
                 .join("line")
                 .attr("class", "line")
-                .attr("x1", function (d) { return axes[i](d[attributes[i]["name"]]) + margin; })
-                .attr("y1", function (d) { return height - margin - interval * i; })
-                .attr("x2", function (d) { return axes[i + 1](d[attributes[i + 1]["name"]]) + margin; })
-                .attr("y2", function (d) { return height - margin - interval * (i + 1); })
+                .attr("x1", function (d) { return margin + interval * i; })
+                .attr("y1", function (d) { return margin + axes[i](d[attributes[i]["name"]]); })
+                .attr("x2", function (d) { return margin + interval * (i + 1); })
+                .attr("y2", function (d) { return margin + axes[i + 1](d[attributes[i + 1]["name"]]); })
                 .style("stroke", function (d) {
                     if (flowers[d["class"]] && flowers[d["class"]]["visible"])
                         return flowers[d["class"]]["color"];
                     return undefined;
                 })
-                .style("stroke-width", "1");
+                .style("stroke-width", "1.5");
         }
     });
 }
