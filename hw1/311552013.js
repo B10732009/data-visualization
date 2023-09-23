@@ -6,7 +6,7 @@ let labels = {
 let colors = {
     "Iris-setosa": "#808040",
     "Iris-versicolor": "#408080",
-    "Iris-virginica": "#5A5AAD"
+    "Iris-virginica": "#8F4586"
 };
 
 let attributeDomains = {
