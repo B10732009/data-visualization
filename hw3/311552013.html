@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="311552013.css">
+    <title>Homework 3: Correlation Matrix</title>
+</head>
+
+<body>
+    <h1>Homework 3: Correlation Matrix</h1>
+
+    <div>
+        <p>Abalone Categories</p>
+        <input type="radio" class="ablone-categories" id="ablone-categories-0" name="ablone-categories" value="" checked
+            onclick="setSex('M'); renderChart();">
+        <label for="ablone-categories-0">Male</label>
+        <input type="radio" class="ablone-categories" id="ablone-categories-1" name="ablone-categories" value=""
+            onclick="setSex('F'); renderChart();">
+        <label for="ablone-categories-1">Female</label>
+        <input type="radio" class="ablone-categories" id="ablone-categories-2" name="ablone-categories" value=""
+            onclick="setSex('I'); renderChart();">
+        <label for="ablone-categories-2">Infant</label>
+    </div>
+
+    <svg id="correlation-matrix-chart" width="1000" height="500"></svg>
+</body>
+
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="311552013.js"></script>
+
+</html>
