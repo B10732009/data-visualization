@@ -1,0 +1,40 @@
+body {
+    background-color: #F0F0F0;
+    text-align: center;
+}
+
+h1,
+p {
+    color: #484891;
+    font-weight: bold;
+}
+
+input,
+label {
+    accent-color: #484891;
+}
+
+.class-dot {
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.class-dot-color-0 {
+    background-color: #808040;
+}
+
+.class-dot-color-1 {
+    background-color: #408080;
+}
+
+.class-dot-color-2 {
+    background-color: #8F4586;
+}
+
+.class-text {
+    height: 15px;
+    font-size: 15px;
+    display: inline-block;
+}
