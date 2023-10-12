@@ -1,10 +1,18 @@
-let colors = {
+// colors for normal points
+const normalColors = {
     "Iris-setosa": "#808040",
     "Iris-versicolor": "#408080",
     "Iris-virginica": "#8F4586"
 };
 
-let attributes = [
+// colors for focused points
+const focusedColors = {
+    "Iris-setosa": "#FFFF37",
+    "Iris-versicolor": "#9AFF02",
+    "Iris-virginica": "#FF0000"
+};
+
+const attributes = [
     {
         "name": "sepal length",
         "title": "Sepal Length",
@@ -27,6 +35,9 @@ let attributes = [
     }
 ];
 
+// store class names of the points being focused 
+let isFocused = {};
+
 const width = 1000;
 const height = 1000;
 const marginWidth = 60;
@@ -41,16 +52,54 @@ const svg = d3.select("#brushable-scatter-plot-matrix-chart");
 // initially render chart
 renderChart();
 
+// function setDataPointFocus(dataPointNum, dataClass) {
+//     isFocused[dataPointNum] = true;
+//     svg.selectAll(`.line-${dataPointNum}`)
+//         .style("stroke", fcolors[dataClass])
+//         .style("stroke-width", "4.5");
+//     svg.selectAll(`.dot-${dataPointNum}`)
+//         .style("fill", fcolors[dataClass])
+//         .style("r", "3.0");
+// }
+
+// function resetDataPointFocus(dataPointNum, dataClass) {
+//     isFocused[dataPointNum] = false;
+//     svg.selectAll(`.line-${dataPointNum}`)
+//         .style("stroke", colors[dataClass])
+//         .style("stroke-width", "2.0");
+//     svg.selectAll(`.dot-${dataPointNum}`)
+//         .style("fill", colors[dataClass])
+//         .style("r", "2.0");
+// }
+
+function handleDataPointFocus(num, class_) {
+    // reset focused effect
+    if (isFocused[num]) {
+        isFocused[num] = false;
+        svg.selectAll(`.line-${num}`)
+            .style("stroke", normalColors[class_])
+            .style("stroke-width", "2.0");
+        svg.selectAll(`.dot-${num}`)
+            .style("fill", normalColors[class_])
+            .style("r", "2.0");
+    }
+    // set focused effect
+    else {
+        isFocused[num] = true;
+        svg.selectAll(`.line-${num}`)
+            .style("stroke", focusedColors[class_])
+            .style("stroke-width", "4.5");
+        svg.selectAll(`.dot-${num}`)
+            .style("fill", focusedColors[class_])
+            .style("r", "3.0");
+    }
+}
+
 function renderChart() {
     // load csv file
     d3.csv("http://vis.lab.djosix.com:2023/data/iris.csv").then(function (data) {
         // filter data to remove empty lines in the dataset
-        const filteredData = data.filter(function (d) { return d["class"]; })
-
-        // remove old dots and axis
-        svg.selectAll(".dot").remove();
-        svg.selectAll(".line").remove();
-        svg.selectAll(".axis").remove();
+        const filteredData = data.filter(function (d) { return d["class"]; });
 
         for (let i = 0; i < attributes.length; i++) {
             for (let j = 0; j < attributes.length; j++) {
@@ -74,32 +123,36 @@ function renderChart() {
 
                 // cell on the diagonal, add histograms
                 if (i == j) {
+                    let k1 = 0, k2 = 0;
                     svg.append("g")
                         .selectAll("line")
-                        .data(data)
+                        .data(filteredData)
                         .join("line")
-                        .attr("class", "line")
+                        .attr("class", function (d) { return `line-${k1++}`; })
                         .attr("x1", function (d) { return xScale(d[attributes[j].name]) + marginWidth + cellMarginWidth + j * cellWidth; })
                         .attr("y1", function (d) { return marginHeight + (i + 1) * cellHeight; })
                         .attr("x2", function (d) { return xScale(d[attributes[j].name]) + marginWidth + cellMarginWidth + j * cellWidth; })
                         .attr("y2", function (d) { return yScale(d[attributes[i].name]) + marginHeight + cellMarginHeight + i * cellHeight; })
-                        .style("stroke", function (d) { return colors[d["class"]]; })
-                        .style("stroke-width", "4.0");
+                        .attr("onclick", function (d) { return `handleDataPointFocus(${k2++}, '${d["class"]}');`; })
+                        .style("stroke", function (d) { return normalColors[d["class"]]; })
+                        .style("stroke-width", "2.0");
                 }
                 // cell not on the diagonal, add dots
                 else {
+                    let k1 = 0, k2 = 0;
                     svg.append("g")
                         .selectAll("dot")
                         .data(filteredData)
                         .join("circle")
-                        .attr("class", "dot")
+                        .attr("class", function (d) { return `dot-${k1++}`; })
                         .attr("cx", function (d) { return xScale(d[attributes[j].name]) + marginWidth + cellMarginWidth + j * cellWidth; })
                         .attr("cy", function (d) { return yScale(d[attributes[i].name]) + marginHeight + cellMarginHeight + i * cellHeight; })
-                        .attr("r", 3.5)
-                        .style("fill", function (d) { return colors[d["class"]]; });
+                        .attr("r", "2.0")
+                        .style("fill", function (d) { return normalColors[d["class"]]; })
+                        .attr("onclick", function (d) { return `handleDataPointFocus(${k2++}, '${d["class"]}');`; });
                 }
 
-                // cell on the upmost, add text
+                // cell on the upmost row, add text
                 if (i == 0) {
                     svg.append("text")
                         .attr("class", "axis-title")
@@ -107,7 +160,7 @@ function renderChart() {
                         .attr("font-size", "14px")
                         .text(attributes[j]["title"]);
                 }
-                // cell on the leftmost, add text
+                // cell on the leftmost column, add text
                 if (j == 0) {
                     svg.append("text")
                         .attr("class", "axis-title")
