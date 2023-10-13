@@ -52,27 +52,7 @@ const svg = d3.select("#brushable-scatter-plot-matrix-chart");
 // initially render chart
 renderChart();
 
-// function setDataPointFocus(dataPointNum, dataClass) {
-//     isFocused[dataPointNum] = true;
-//     svg.selectAll(`.line-${dataPointNum}`)
-//         .style("stroke", fcolors[dataClass])
-//         .style("stroke-width", "4.5");
-//     svg.selectAll(`.dot-${dataPointNum}`)
-//         .style("fill", fcolors[dataClass])
-//         .style("r", "3.0");
-// }
-
-// function resetDataPointFocus(dataPointNum, dataClass) {
-//     isFocused[dataPointNum] = false;
-//     svg.selectAll(`.line-${dataPointNum}`)
-//         .style("stroke", colors[dataClass])
-//         .style("stroke-width", "2.0");
-//     svg.selectAll(`.dot-${dataPointNum}`)
-//         .style("fill", colors[dataClass])
-//         .style("r", "2.0");
-// }
-
-function handleDataPointFocus(num, class_) {
+function handleFocus(num, class_) {
     // reset focused effect
     if (isFocused[num]) {
         isFocused[num] = false;
@@ -133,7 +113,7 @@ function renderChart() {
                         .attr("y1", function (d) { return marginHeight + (i + 1) * cellHeight; })
                         .attr("x2", function (d) { return xScale(d[attributes[j].name]) + marginWidth + cellMarginWidth + j * cellWidth; })
                         .attr("y2", function (d) { return yScale(d[attributes[i].name]) + marginHeight + cellMarginHeight + i * cellHeight; })
-                        .attr("onclick", function (d) { return `handleDataPointFocus(${k2++}, '${d["class"]}');`; })
+                        .attr("onclick", function (d) { return `handleFocus(${k2++}, '${d["class"]}');`; })
                         .style("stroke", function (d) { return normalColors[d["class"]]; })
                         .style("stroke-width", "2.0");
                 }
@@ -149,7 +129,7 @@ function renderChart() {
                         .attr("cy", function (d) { return yScale(d[attributes[i].name]) + marginHeight + cellMarginHeight + i * cellHeight; })
                         .attr("r", "2.0")
                         .style("fill", function (d) { return normalColors[d["class"]]; })
-                        .attr("onclick", function (d) { return `handleDataPointFocus(${k2++}, '${d["class"]}');`; });
+                        .attr("onclick", function (d) { return `handleFocus(${k2++}, '${d["class"]}');`; });
                 }
 
                 // cell on the upmost row, add text
