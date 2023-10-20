@@ -11,22 +11,43 @@
 <body>
     <h1>Homework 5: Stacked Bar Charts</h1>
 
-    <!-- <br>
-    <p>Flower</p>
+    <br>
     
+    <p>Use the drop-down list below to choose a rule to reorder the data.</p>
     <div>
-        <div class="class-dot class-dot-color-0"></div>
-        <div class="class-text">Iris-setosa&nbsp;&nbsp;</div>
-        <div class="class-dot class-dot-color-1"></div>
-        <div class="class-text">Iris-versicolor&nbsp;&nbsp;</div>
-        <div class="class-dot class-dot-color-2"></div>
-        <div class="class-text">Iris-virginica</div>
+        <select id="selected-sorting-rule" name="pets" onchange="selectSortingRule(); renderChart();">
+            <option value="" selected>sort the data by...</option>
+            <option value="overall_scores_ascending">overall scores (ascending)</option>
+            <option value="overall_scores_descending">overall scores (descending)</option>
+            <option value="teaching_scores_ascending">teaching scores (ascending)</option>
+            <option value="teaching_scores_descending">teaching scores (descending)</option>
+            <option value="research_scores_ascending">research scores (ascending)</option>
+            <option value="research_scores_descending">research scores (descending)</option>
+            <option value="citation_scores_ascending">citations scores (ascending)</option>
+            <option value="citation_scores_descending">citations scores (descending)</option>
+            <option value="industry_income_scores_ascending">industry income scores (ascending)</option>
+            <option value="industry_income_scores_descending">industry income scores (descending)</option>
+            <option value="international_outlook_scores_ascending">international outlook scores (ascending)</option>
+            <option value="international_outlook_scores_descending">international outlook scores (descending)</option>
+        </select>
     </div>
 
-    <br>
-    <p>Click on the dots or histograms to emphasize the data.</p>
-    <p>Click again to cancel.</p>-->
+    <br><br>
 
+    <p>Criteria</p>
+    <div>
+        <div class="criteria criteria-color-0"></div>
+        <div class="criteria-text">Teaching&nbsp;&nbsp;</div>
+        <div class="criteria criteria-color-1"></div>
+        <div class="criteria-text">Research&nbsp;&nbsp;</div>
+        <div class="criteria criteria-color-2"></div>
+        <div class="criteria-text">Citation</div>
+        <div class="criteria criteria-color-3"></div>
+        <div class="criteria-text">Industry Income</div>
+        <div class="criteria criteria-color-4"></div>
+        <div class="criteria-text">International Outlook</div>
+    </div>
+    
     <svg id="stacked-bar-chart" width="1000" height="50000"></svg> 
 </body>
 
