@@ -1,0 +1,26 @@
+body {
+    background-color: #F0F0F0;
+    text-align: center;
+}
+
+h1,
+p {
+    color: #484891;
+    font-weight: bold;
+}
+
+input,
+label {
+    accent-color: #484891;
+}
+
+#stream-order {
+    display: inline-flex;
+}
+
+.stream-order-button {
+    background-color: #484891;
+    border: none;
+    color: #F0F0F0;
+    text-align: center;
+}
