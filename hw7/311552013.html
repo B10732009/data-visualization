@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="311552013.css">
+    <title>Homework 7: Horizon Chart</title>
+</head>
+
+<body>
+    <h1>Homework 7: Horizon Chart</h1>
+
+    <div>
+        <select id="year" name="year" onchange="selectBandNumber(); renderChart();">
+            <option value="2017" selected>year = 2017</option>
+            <option value="2018">year = 2018</option>
+            <option value="2019">year = 2019</option>
+        </select>
+        <select id="band-number" name="band-number" onchange="selectBandNumber(); renderChart();">
+            <option value="1" selected>band number = 1</option>
+            <option value="2">band number = 2</option>
+            <option value="3">band number = 3</option>
+            <option value="4">band number = 4</option>
+            <option value="5">band number = 5</option>
+        </select>
+    </div>
+    
+    <svg id="horizon-chart" width="1200" height="16000"></svg> 
+</body>
+
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="311552013.js"></script>
+
+</html>
