@@ -1,0 +1,31 @@
+body {
+    background-color: #F0F0F0;
+    text-align: center;
+}
+
+h1,
+p {
+    color: #484891;
+    font-weight: bold;
+}
+
+input,
+label {
+    accent-color: #484891;
+}
+
+/* #year, 
+#band-number {
+    border: solid;
+    border-color: #484891;
+} */
+
+.link {
+    fill: none;
+    stroke: #000;
+    stroke-opacity: .2;
+}
+
+.link:hover {
+    stroke-opacity: .5;
+}
