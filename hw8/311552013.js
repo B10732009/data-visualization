@@ -20,7 +20,8 @@ const sankey = d3.sankey()
     .nodePadding(20)
     .size([width, height]);
 
-// load the data
+// load the data, 
+// note that the format of function is differenr in v4
 d3.text("http://vis.lab.djosix.com:2023/data/car.data", function (text) {
     // this csv file doesn't have header, so read it as text, add header, 
     // and read it as csv again    
@@ -94,6 +95,7 @@ d3.text("http://vis.lab.djosix.com:2023/data/car.data", function (text) {
         .append("path")
         .attr("class", "link")
         .attr("d", sankey.link())
+        .style("stroke", function (d) { return color(d.source.node); })
         .style("stroke-width", function (d) { return d.dy; })
         .sort(function (a, b) { return b.dy - a.dy; });
 
@@ -122,7 +124,7 @@ d3.text("http://vis.lab.djosix.com:2023/data/car.data", function (text) {
         .style("fill", function (d) { return color(d.node); })
         .style("stroke", "#000000")
         .append("title")
-        .text(function (d) { return `${d.name}: ${d.value}` });
+        .text(function (d) { return `${d.name}: ${d.value}`; });
 
     // add title for the nodes
     node.append("text")
