@@ -12,6 +12,7 @@
 - [university ranking](http://vis.lab.djosix.com:2023/data/TIMES_WorldUniversityRankings_2024.csv)
 - [house price](http://vis.lab.djosix.com:2023/data/ma_lga_12345.csv)
 - [air pollution](http://vis.lab.djosix.com:2023/data/air-pollution.csv)
+- [car](http://vis.lab.djosix.com:2023/data/car.data)
 
 ## Homework Website
 
