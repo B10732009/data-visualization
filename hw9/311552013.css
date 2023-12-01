@@ -13,3 +13,8 @@ input,
 label {
     accent-color: #484891;
 }
+
+button {
+    color: #484891;
+    font-weight: bold;
+}

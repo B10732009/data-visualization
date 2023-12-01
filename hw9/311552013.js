@@ -1,10 +1,11 @@
-/* 
-    1. correlation matrix: each pair of audio features
-    2. scatter plots: artists, 發布的歌曲-熱門程度
-    3. pie chart: genre
-*/
+function refresh() {
+    d3.select("#chart").selectAll(".svg").remove();
+}
 
-renderChart1();
+function highlightBtn(num) {
+    d3.selectAll(`.btn`).style("border-color", "#E0E0E0");
+    d3.select(`.btn${num}`).style("border-color", "#484891");
+}
 
 function renderChart1() {
     d3.csv("http://vis.lab.djosix.com:2023/data/spotify_tracks.csv").then(function (data) {
@@ -14,9 +15,11 @@ function renderChart1() {
 
         const svg = d3.select("#chart")
             .append("svg")
+            .attr("class", "svg")
             .attr("width", width)
             .attr("height", height);
 
+        // calculate sum of number and popularity of each genre
         let genre = {};
         for (let i = 0; i < data.length; i++) {
             if (genre[data[i]["track_genre"]]) {
@@ -31,6 +34,7 @@ function renderChart1() {
             }
         }
 
+        // calculate average popularity of each genre
         let genreArr = [];
         for (let g in genre) {
             genreArr.push({
@@ -39,58 +43,78 @@ function renderChart1() {
             });
         }
 
+        // sort the array by average popularity
         genreArr.sort(function (a, b) { return b["avg_popularity"] - a["avg_popularity"]; });
 
         // add x-axis
         const xScale = d3.scaleLinear()
             .domain([0, 100])
-            .range([margin + 100, width - margin]);
+            .range([0, width - (margin + 100) * 2]);
         svg.append("g")
             .attr("class", "axis")
-            .attr("transform", `translate(0, ${margin})`)
+            .attr("transform", `translate(${margin + 100}, ${margin})`)
             .call(d3.axisTop(xScale));
 
         // add y-axis
         const yScale = d3.scaleBand()
-            .domain(genreArr.map(function (d) { return d["name"] }))
-            .range([margin, height - margin])
+            .domain(genreArr.map(function (d) { return d["name"]; }))
+            .range([0, height - margin * 2])
         svg.append("g")
             .attr("class", "axis")
-            .attr("transform", `translate(${margin + 100}, 0)`)
+            .attr("transform", `translate(${margin + 100}, ${margin})`)
             .call(d3.axisLeft(yScale));
 
+        // add axis-titles
+        svg.append("text")
+            .attr("x", 5)
+            .attr("y", 5)
+            .attr("text-anchor", "left")
+            .attr("dy", "0.35em")
+            .attr("font-size", "12px")
+            .text("genre \\ popularity");
+
         // add bars
-        let colors = ["#9F0050", "#BF0060", "#D9006C", "#F00078", "#FF0080"];
+        const colors = ["#844200", "#D26900", "#FF9224", "#FFBB77", "#FFDCB9"];
         for (let i = 0; i < genreArr.length; i++) {
             svg.append("rect")
-                .attr("class", `bar bar-${genreArr[i]["name"]}`)
+                .attr("class", `bar bar-${i}`)
                 .attr("x", margin + 100)
                 .attr("y", margin + i * yScale.bandwidth() + 1)
                 .attr("width", xScale(genreArr[i]["avg_popularity"]))
                 .attr("height", yScale.bandwidth() - 2)
                 .attr("fill", colors[Math.floor(genreArr[i]["avg_popularity"] / 20.0)])
                 .on("mouseover", function (e, d) {
-                    d3.selectAll(".bar")
-                        .style("opacity", 0.2);
-                    d3.selectAll(`.bar-${genreArr[i]["name"]}`)
-                        .style("opacity", 1.0);
+                    d3.selectAll(".bar").style("opacity", 0.2);
+                    d3.selectAll(`.bar-${i}`).style("opacity", 1.0);
+                    d3.selectAll(".text").style("opacity", 0.2);
+                    d3.selectAll(`.text-${i}`).style("opacity", 1.0);
                 })
                 .on("mouseleave", function (e, d) {
-                    d3.selectAll(".bar")
-                        .style("opacity", 1.0);
+                    d3.selectAll(".bar").style("opacity", 1.0);
+                    d3.selectAll(".text").style("opacity", 1.0);
                 });
+
+            svg.append("text")
+                .attr("class", `text text-${i}`)
+                .attr("x", margin + 100 + xScale(genreArr[i]["avg_popularity"]) + 2)
+                .attr("y", margin + (i + 0.5) * yScale.bandwidth())
+                .attr("text-anchor", "left")
+                .attr("dy", "0.35em")
+                .attr("font-size", "12px")
+                .text(`${genreArr[i]["avg_popularity"]}`);
         }
     });
 }
 
 function renderChart2() {
     d3.csv("http://vis.lab.djosix.com:2023/data/spotify_tracks.csv").then(function (data) {
-        const width = 1200;
-        const height = 1200;
+        const width = 800;
+        const height = 800;
         const margin = 30;
 
         const svg = d3.select("#chart")
             .append("svg")
+            .attr("class", "svg")
             .attr("width", width)
             .attr("height", height);
 
@@ -111,9 +135,6 @@ function renderChart2() {
             }
         }
 
-        // console.log(artists);
-        // console.log(Object.keys(artists).length);
-
         // add x-axis
         const xScale = d3.scaleLinear()
             .domain([0, 550])
@@ -132,9 +153,17 @@ function renderChart2() {
             .attr("transform", `translate(${margin}, 0)`)
             .call(d3.axisLeft(yScale));
 
+        // add axis-titles
+        svg.append("text")
+            .attr("x", 5)
+            .attr("y", 5)
+            .attr("text-anchor", "left")
+            .attr("dy", "0.35em")
+            .attr("font-size", "12px")
+            .text("average song popularity / song number");
+
         for (let key in artists) {
             if (artists[key]["track_number"] > 300) {
-                // console.log()
                 console.log(key, artists[key]["track_number"]);
             }
 
@@ -165,16 +194,13 @@ function renderChart2() {
 
 function renderChart3() {
     d3.csv("http://vis.lab.djosix.com:2023/data/spotify_tracks.csv").then(function (data) {
-        svg.selectAll(".chart").remove();
-    
         const width = 1200;
         const height = 800;
         const margin = 30;
-        const cellWidth = (width - margin * 2) / features.length;
-        const cellHeight = (height - margin * 2) / features.length;
 
         const svg = d3.select("#chart")
             .append("svg")
+            .attr("class", "svg")
             .attr("width", width)
             .attr("height", height);
 
@@ -195,6 +221,9 @@ function renderChart3() {
             "tempo",
             "time_signature"
         ];
+
+        const cellWidth = (width - margin * 2) / features.length;
+        const cellHeight = (height - margin * 2) / features.length;
 
         const colors = [
             // negative
@@ -291,3 +320,7 @@ function renderChart3() {
         }
     });
 }
+
+// Initially select chart1
+highlightBtn(1);
+renderChart1();

@@ -12,22 +12,25 @@
     <h1>Homework 9: Spotify Tracks Dataset</h1>
     <br>
     <div>
-        <input type="radio" id="chart1" name="chart" value="Genre-Popularity Analysis" checked onclick="renderChart1();">
+        <button class="btn btn1" onclick="highlightBtn(1); refresh(); renderChart1();">Genre-Popularity Analysis</button>
+        <button class="btn btn2" onclick="highlightBtn(2); refresh(); renderChart2();">Artist Analysis</button>
+        <button class="btn btn3" onclick="highlightBtn(3); refresh(); renderChart3();">Audio Feature Correlation Matrix</button>
+        <!-- <input type="radio" id="chart1" name="chart" value="Genre-Popularity Analysis" checked onclick="renderChart1();">
         <label for="chart1">Genre-Popularity Analysis</label>
         <input type="radio" id="chart2" name="chart" value="Artist Analysis" onclick="renderChart2();">
         <label for="chart2">Artist Analysis</label>
         <input type="radio" id="chart3" name="chart" value="Audio Feature Heat Map" onclick="renderChart3();">
-        <label for="chart3">Audio Feature Heat Map</label>
+        <label for="chart3">Audio Feature Heat Map</label> -->
     </div>
     <br>
-    <div id="chart"></div> 
+    <div id="chart"></div>
 </body>
 
 
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <script src="311552013.js"></script>
 <script>
-    
+
 </script>
 
 </html>
