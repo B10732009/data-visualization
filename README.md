@@ -2,8 +2,8 @@
 
 ## Libraries
 
-- D3: [https://d3js.org/](https://d3js.org/)
-- D3 tutorial: [https://www.youtube.com/watch?v=_8V5o2UHG0E](https://www.youtube.com/watch?v=_8V5o2UHG0E)
+- [D3](https://d3js.org/)
+- [D3 tutorial](https://www.youtube.com/watch?v=_8V5o2UHG0E)
 
 ## Datasets
 
@@ -13,6 +13,7 @@
 - [house price](http://vis.lab.djosix.com:2023/data/ma_lga_12345.csv)
 - [air pollution](http://vis.lab.djosix.com:2023/data/air-pollution.csv)
 - [car](http://vis.lab.djosix.com:2023/data/car.data)
+- [spotify tracks](http://vis.lab.djosix.com:2023/data/spotify_tracks.csv)
 
 ## Homework Website
 
