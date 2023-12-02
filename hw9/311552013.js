@@ -1,10 +1,14 @@
 function refresh() {
-    d3.select("#chart").selectAll(".svg").remove();
+    d3.select("#chart")
+        .selectAll(".svg")
+        .remove();
 }
 
-function highlightBtn(num) {
-    d3.selectAll(`.btn`).style("border-color", "#E0E0E0");
-    d3.select(`.btn${num}`).style("border-color", "#484891");
+function highlightButton(num) {
+    d3.selectAll(`.btn`)
+        .style("border-color", "#E0E0E0");
+    d3.select(`.btn-${num}`)
+        .style("border-color", "#484891");
 }
 
 function renderChart1() {
@@ -18,6 +22,14 @@ function renderChart1() {
             .attr("class", "svg")
             .attr("width", width)
             .attr("height", height);
+
+        const colors = [
+            "#844200", 
+            "#D26900", 
+            "#FF9224", 
+            "#FFBB77", 
+            "#FFDCB9"
+        ];
 
         // calculate sum of number and popularity of each genre
         let genre = {};
@@ -51,7 +63,6 @@ function renderChart1() {
             .domain([0, 100])
             .range([0, width - (margin + 100) * 2]);
         svg.append("g")
-            .attr("class", "axis")
             .attr("transform", `translate(${margin + 100}, ${margin})`)
             .call(d3.axisTop(xScale));
 
@@ -60,7 +71,6 @@ function renderChart1() {
             .domain(genreArr.map(function (d) { return d["name"]; }))
             .range([0, height - margin * 2])
         svg.append("g")
-            .attr("class", "axis")
             .attr("transform", `translate(${margin + 100}, ${margin})`)
             .call(d3.axisLeft(yScale));
 
@@ -74,7 +84,6 @@ function renderChart1() {
             .text("genre \\ popularity");
 
         // add bars
-        const colors = ["#844200", "#D26900", "#FF9224", "#FFBB77", "#FFDCB9"];
         for (let i = 0; i < genreArr.length; i++) {
             svg.append("rect")
                 .attr("class", `bar bar-${i}`)
@@ -84,14 +93,20 @@ function renderChart1() {
                 .attr("height", yScale.bandwidth() - 2)
                 .attr("fill", colors[Math.floor(genreArr[i]["avg_popularity"] / 20.0)])
                 .on("mouseover", function (e, d) {
-                    d3.selectAll(".bar").style("opacity", 0.2);
-                    d3.selectAll(`.bar-${i}`).style("opacity", 1.0);
-                    d3.selectAll(".text").style("opacity", 0.2);
-                    d3.selectAll(`.text-${i}`).style("opacity", 1.0);
+                    d3.selectAll(".bar")
+                        .style("opacity", 0.2);
+                    d3.selectAll(`.bar-${i}`)
+                        .style("opacity", 1.0);
+                    d3.selectAll(".text")
+                        .style("opacity", 0.2);
+                    d3.selectAll(`.text-${i}`)
+                        .style("opacity", 1.0);
                 })
                 .on("mouseleave", function (e, d) {
-                    d3.selectAll(".bar").style("opacity", 1.0);
-                    d3.selectAll(".text").style("opacity", 1.0);
+                    d3.selectAll(".bar")
+                        .style("opacity", 1.0);
+                    d3.selectAll(".text")
+                        .style("opacity", 1.0);
                 });
 
             svg.append("text")
@@ -108,8 +123,8 @@ function renderChart1() {
 
 function renderChart2() {
     d3.csv("http://vis.lab.djosix.com:2023/data/spotify_tracks.csv").then(function (data) {
-        const width = 800;
-        const height = 800;
+        const width = 1200;
+        const height = 600;
         const margin = 30;
 
         const svg = d3.select("#chart")
@@ -140,7 +155,6 @@ function renderChart2() {
             .domain([0, 550])
             .range([margin, width - margin]);
         svg.append("g")
-            .attr("class", "axis")
             .attr("transform", `translate(0, ${height - margin})`)
             .call(d3.axisBottom(xScale));
 
@@ -149,12 +163,12 @@ function renderChart2() {
             .domain([0, 100])
             .range([height - margin, margin])
         svg.append("g")
-            .attr("class", "axis")
             .attr("transform", `translate(${margin}, 0)`)
             .call(d3.axisLeft(yScale));
 
         // add axis-titles
         svg.append("text")
+            .attr("class", "axis-title-text")
             .attr("x", 5)
             .attr("y", 5)
             .attr("text-anchor", "left")
@@ -162,33 +176,41 @@ function renderChart2() {
             .attr("font-size", "12px")
             .text("average song popularity / song number");
 
-        for (let key in artists) {
-            if (artists[key]["track_number"] > 300) {
-                console.log(key, artists[key]["track_number"]);
-            }
+        // add circles
+        for (let a in artists) {
+            const songs = artists[a]["track_number"];
+            const avgPopularity = Math.round(artists[a]["popularity"] / artists[a]["track_number"] * 100) / 100;
 
             svg.append("circle")
-                .attr("class", `dot dot-${key}`)
-                .attr("cx", xScale(artists[key]["track_number"]))
-                .attr("cy", yScale(artists[key]["popularity"] / artists[key]["track_number"]))
+                .attr("class", `dot dot-${a.split(" ").join("")}`)
+                .attr("cx", xScale(songs))
+                .attr("cy", yScale(avgPopularity))
                 .attr("r", 3)
-                .attr("fill", "#B87070")
+                .attr("fill", "#007979")
                 .on("mouseover", function (e, d) {
                     d3.selectAll(".dot")
-                        .style("opacity", 0.0);
-                    d3.selectAll(`.dot-${key}`)
+                        .style("opacity", 0.2);
+                    d3.selectAll(`.dot-${a.split(" ").join("")}`)
                         .style("opacity", 1.0)
-                        .style("r", 5);
-                    console.log("a", d3.select(this.parentNode).datum());
+                        .style("fill", "#00FFFF")
+
+                    svg.append("text")
+                        .attr("class", "info-text")
+                        .attr("x", xScale(songs) + 5)
+                        .attr("y", yScale(avgPopularity))
+                        .attr("text-anchor", "left")
+                        .attr("dy", "0.35em")
+                        .attr("font-size", "12px")
+                        .text(`${a}: ${songs} songs, ${avgPopularity} average popularity`);
                 })
                 .on("mouseleave", function (e, d) {
                     d3.selectAll(".dot")
                         .style("opacity", 1.0)
-                        .attr("fill", "#B87070");
-                    console.log("b");
+                        .style("fill", "#007979")
+                    d3.selectAll(".info-text")
+                        .remove();
                 });
         }
-
     });
 }
 
@@ -258,8 +280,16 @@ function renderChart3() {
                     continue;
                 }
                 else if (i == 0) {
+                    svg.append("rect")
+                        .attr("class", `cell cell-${i}-${j}`)
+                        .attr("x", i * cellWidth)
+                        .attr("y", j * cellHeight)
+                        .attr("width", cellWidth - 2)
+                        .attr("height", cellHeight - 2)
+                        .attr("fill", "#F0F0F0")
+                    
                     svg.append("text")
-                        .attr("class", "chart")
+                        .attr("class", `cell-text cell-text-${i}-${j}`)
                         .attr("x", (i + 0.5) * cellWidth - 1)
                         .attr("y", (j + 0.5) * cellHeight - 1)
                         .attr("text-anchor", "middle")
@@ -268,8 +298,16 @@ function renderChart3() {
                         .text(`${features[j]}`);
                 }
                 else if (j == 0) {
+                    svg.append("rect")
+                        .attr("class", `cell cell-${i}-${j}`)
+                        .attr("x", i * cellWidth)
+                        .attr("y", j * cellHeight)
+                        .attr("width", cellWidth - 2)
+                        .attr("height", cellHeight - 2)
+                        .attr("fill", "#F0F0F0")
+
                     svg.append("text")
-                        .attr("class", "chart")
+                        .attr("class", `cell-text cell-text-${i}-${j}`)
                         .attr("x", (i + 0.5) * cellWidth - 1)
                         .attr("y", (j + 0.5) * cellHeight - 1)
                         .attr("text-anchor", "middle")
@@ -279,6 +317,7 @@ function renderChart3() {
                 }
                 else {
                     let r = 1.0;
+                    // calculate correlation coefficient
                     if (i != j) {
                         let xsum = 0.0, ysum = 0.0;
                         for (let k = 0; k < data.length; k++) {
@@ -300,21 +339,55 @@ function renderChart3() {
                     }
 
                     svg.append("rect")
-                        .attr("class", "chart")
+                        .attr("class", `cell cell-${i}-${j}`)
                         .attr("x", i * cellWidth)
                         .attr("y", j * cellHeight)
                         .attr("width", cellWidth - 2)
                         .attr("height", cellHeight - 2)
-                        .attr("fill", colors[Math.floor((r * 10)) + 10]);
+                        .attr("fill", colors[Math.floor((r * 10)) + 10])
+                        .on("mouseover", function (e, d) {
+                            d3.selectAll(".cell")
+                                .attr("stroke", "#F0F0F0");
+                            d3.selectAll(`.cell-${i}-${j}`)
+                                .attr("stroke", "#FF0000")
+                                .attr("stroke-width", "2")
+                            d3.selectAll(`.cell-${i}-${0}`)
+                                .attr("stroke", "#FF0000")
+                                .attr("stroke-width", "2")
+                            d3.selectAll(`.cell-${0}-${j}`)
+                                .attr("stroke", "#FF0000")
+                                .attr("stroke-width", "2")
+                        })
+                        .on("mouseleave", function (e, d) {
+                            d3.selectAll(".cell")
+                                .attr("stroke", "#F0F0F0");
+                        });
 
                     svg.append("text")
-                        .attr("class", "chart")
+                        .attr("class", `cell-text cell-text-${i}-${j}`)
                         .attr("x", (i + 0.5) * cellWidth - 1)
                         .attr("y", (j + 0.5) * cellHeight - 1)
                         .attr("text-anchor", "middle")
                         .attr("dy", "0.35em")
                         .attr("font-size", "14px")
-                        .text(`${r}`);
+                        .text(`${r}`)
+                        .on("mouseover", function (e, d) {
+                            d3.selectAll(".cell")
+                                .attr("stroke", "#F0F0F0");
+                            d3.selectAll(`.cell-${i}-${j}`)
+                                .attr("stroke", "#FF0000")
+                                .attr("stroke-width", "2")
+                            d3.selectAll(`.cell-${i}-${0}`)
+                                .attr("stroke", "#FF0000")
+                                .attr("stroke-width", "2")
+                            d3.selectAll(`.cell-${0}-${j}`)
+                                .attr("stroke", "#FF0000")
+                                .attr("stroke-width", "2")
+                        })
+                        .on("mouseleave", function (e, d) {
+                            d3.selectAll(".cell")
+                                .attr("stroke", "#F0F0F0");
+                        });
                 }
             }
         }
@@ -322,5 +395,5 @@ function renderChart3() {
 }
 
 // Initially select chart1
-highlightBtn(1);
+highlightButton(1);
 renderChart1();
